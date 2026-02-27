@@ -6,15 +6,13 @@
 
 // @lc code=start
 func containsDuplicate(nums []int) bool {
-	mapValues := make(map[int]int)
-	for i := 0; i < len(nums); i++ {
-		value := nums[i]
+	valueMap := make(map[int]interface{})
 
-		if _, ok := mapValues[value]; ok {
+	for _, v := range nums {
+		if _, exists := valueMap[v]; exists {
 			return true
 		}
-
-		mapValues[value] = 0
+		valueMap[v] = nil
 	}
 	return false
 }
