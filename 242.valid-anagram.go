@@ -9,34 +9,21 @@ func isAnagram(s string, t string) bool {
 
 	if len(s) != len(t) {
 		return false
-
 	}
 
-	mapValue := make(map[string]int, len(t))
-	str := strings.Split(t, "")
-	// Put character of string into map
-	for _, str := range str {
-		mapValue[str] += 1
+	cMap := make(map[rune]int, 26)
+
+	for _, c := range s {
+		cMap[c]++
 	}
 
-	foundStr := strings.Split(s, "")
-	for _, target := range foundStr {
-		if _, ok := mapValue[target]; ok {
-			mapValue[target] -= 1
-			if mapValue[target] == 0 {
-				delete(mapValue, target)
-			}
+	for _, c := range t {
+		cMap[c]--
+		if cMap[c] < 0 {
+			return false
 		}
 	}
-
-	// for key, element := range mapValue {
-	// 	fmt.Println("Key:", key, "=>", "Element:", element)
-	// }
-
-	return len(mapValue) == 0
-	// Remove items if exists.
-
-	// Return ture if mapValue is empty/
+	return true
 }
 
 // @lc code=end
