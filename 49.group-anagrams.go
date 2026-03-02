@@ -6,10 +6,14 @@
 
 // @lc code=start
 func groupAnagrams(strs []string) [][]string {
-	mapValue := make(map[string][]string, len(strs))
+	mapValue := make(map[[26]int][]string, len(strs))
 	for _, str := range strs {
-		key := stringEncode(str)
-		mapValue[key] = append(mapValue[key], str)
+		letterArray := [26]int{}
+		for _, v := range str {
+			letterArray[v-'a']++
+		}
+
+		mapValue[letterArray] = append(mapValue[letterArray], str)
 	}
 
 	result := make([][]string, len(mapValue))
@@ -19,28 +23,6 @@ func groupAnagrams(strs []string) [][]string {
 		i++
 	}
 	return result
-}
-
-func stringEncode(str string) string {
-	if str == "" {
-		return ""
-	}
-
-	letterArray := [26]int{}
-	for _, v := range str {
-		letterArray[v-'a']++
-	}
-
-	var sb strings.Builder
-	for i := 0; i < len(letterArray); i++ {
-		if letterArray[i] == 0 {
-			continue
-		}
-		sb.WriteString(fmt.Sprintf("%s%d", string(i+'a'), letterArray[i]))
-	}
-
-	return sb.String()
-
 }
 
 // @lc code=end
