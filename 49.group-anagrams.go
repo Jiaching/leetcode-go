@@ -6,11 +6,11 @@
 
 // @lc code=start
 func groupAnagrams(strs []string) [][]string {
-	mapValue := make(map[[26]int][]string, len(strs))
+	mapValue := make(map[[26]byte][]string, len(strs))
 	for _, str := range strs {
-		letterArray := [26]int{}
-		for _, v := range str {
-			letterArray[v-'a']++
+		letterArray := [26]byte{}
+		for i := 0; i < len(str); i++ {
+			letterArray[str[i]-'a']++
 		}
 
 		mapValue[letterArray] = append(mapValue[letterArray], str)
